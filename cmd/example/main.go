@@ -18,11 +18,15 @@ func main() {
 	// }
 
 	// Buscar cotação de criptomoeda (exemplo: Bitcoin)
-	crypto, err := crypto.GetCryptoQuote("bitcoin")
-	if err != nil {
-		fmt.Println("Erro ao buscar cripto:", err)
-	} else {
-		fmt.Printf("Cripto: %s - Preço Atual: %.2f - ATH: %.2f - Max Supply: %.f - Last_Update: %s \n",
-			crypto.Symbol, crypto.Price, crypto.ATH, crypto.MaxSupply, crypto.LastUpdated)
-	}
+	symbol := "bitcoin" // Nome correto no CoinGecko
+	quote, _ := crypto.GetCryptoQuote(symbol)
+
+	fmt.Println("💰 Cotação de", quote.Name, "("+quote.Symbol+")")
+	fmt.Println("🔹 Preço Atual:", quote.PriceInfo.CurrentPrice)
+	fmt.Println("🚀 Máxima Histórica:", quote.ATHInfo.ATH, "em", quote.ATHInfo.ATHDate)
+	fmt.Println("📉 Mínima Histórica:", quote.ATLInfo.ATL, "em", quote.ATLInfo.ATLDate)
+	fmt.Println("📊 Market Cap:", quote.MarketInfo.MarketCap)
+	fmt.Println("🏆 Rank no Mercado:", quote.MarketInfo.MarketCapRank)
+	fmt.Println("📈 Variação 24h:", quote.PriceInfo.PriceChange24h, "(", quote.PriceInfo.PriceChangePct24h, "% )")
+	fmt.Println("🔄 Última atualização:", quote.FormattedLastUpdated)
 }
